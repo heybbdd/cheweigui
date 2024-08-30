@@ -1,0 +1,48 @@
+struct ListNode* mergeTwoLists(struct ListNode* list1, struct ListNode* list2) {
+    struct ListNode* n1 = list1;
+    struct ListNode* n2 = list2;
+
+    struct ListNode* newHead;
+    struct ListNode* newTail;
+
+     newHead = newTail = (struct ListNode*)malloc(sizeof(struct ListNode));
+
+    if(list1 == NULL)
+    {
+        return list2;
+    }
+    if(list2 == NULL)
+    {
+        return list1;
+    }
+    
+    while(n1 && n2)
+    {
+        if(n1->val >= n2->val)
+        {
+            newTail->next = n2;
+            newTail = newTail->next;
+            n2 = n2->next;
+        }
+        else
+        {
+            newTail->next = n1;
+            newTail = newTail->next;
+            n1 = n1->next;
+        }
+    }
+
+    if(n2)
+    {
+        newTail->next = n2;
+    }
+    else
+    {
+        newTail->next = n1;
+    }
+
+    struct ListNode* ret = newHead->next;
+    free(newHead);
+    newHead = NULL; 
+    return ret;
+}
